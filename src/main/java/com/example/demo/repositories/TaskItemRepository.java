@@ -12,19 +12,20 @@ import java.util.List;
 @Repository
 public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
 
-    //    完了タスクを抽出
-    @Query(value = "SELECT * FROM task_item " +
-            "WHERE is_completed = true", nativeQuery = true)
+    //    完了タスクを取得
+    @Query(value = "SELECT * FROM task_item WHERE is_completed = true", nativeQuery = true)
     List<TaskItem> completedTaskGet();
 
-    //    未完了タスクを抽出
-    @Query(value = "SELECT * FROM task_item " +
-            "WHERE is_completed = false", nativeQuery = true)
+    //    未完了タスクを取得
+    @Query(value = "SELECT * FROM task_item WHERE is_completed = false", nativeQuery = true)
     List<TaskItem> inCompletedTaskGet();
 
-//    カテゴリを指定して未完了タスクを抽出
-    @Query(value = "SELECT * FROM task_item " +
-            "WHERE category = :category", nativeQuery = true)
+    //    最新のタスク取得
+    @Query(value = "SELECT * FROM task_item WHERE id = (SELECT MAX(id) from task_item)", nativeQuery = true)
+    TaskItem latestTaskGet();
+
+    //    カテゴリを指定して未完了タスクを取得
+    @Query(value = "SELECT * FROM task_item WHERE category = :category", nativeQuery = true)
     List<TaskItem> findByCategory(@Param("category") String category);
 
 }

@@ -37,7 +37,12 @@ public class TaskRestController {
         List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGet();
         return taskItems;
     }
-
+//    最新のタスク取得
+    @GetMapping("/latestTaskGet")
+    public TaskItem latestTaskGet () {
+        TaskItem taskItem = taskItemRepository.latestTaskGet();
+        return taskItem;
+    }
 
 //    タスク追加
     @PostMapping("/taskAdd")
