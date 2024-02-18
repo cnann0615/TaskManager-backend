@@ -18,7 +18,7 @@ public class TaskRestController {
     private TaskCategoryRepository taskCategoryRepository;
 
 
-//    タスク取得
+//    取得
 //    全タスク取得
     @GetMapping("/taskGetAll")
     public List<TaskItem> taskGet () {
@@ -44,6 +44,7 @@ public class TaskRestController {
         return taskItem;
     }
 
+//    追加
 //    タスク追加
     @PostMapping("/taskAdd")
     public List<TaskItem> taskAdd (@RequestBody TaskItem taskItem) {
@@ -51,10 +52,16 @@ public class TaskRestController {
         List<TaskItem> taskItems = taskItemRepository.findAll();
         return taskItems;
     }
-
+    //    カテゴリ追加
+    @PostMapping("/categoryAdd")
+    public  List<TaskCategory> taskCategories (@RequestBody TaskCategory taskCategory) {
+        taskCategoryRepository.save(taskCategory);
+        List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
+        return taskCategories;
+    }
 
 //    タスク削除
-    @DeleteMapping("/taskDelete//{id}")
+    @DeleteMapping("/taskDelete/{id}")
     public List<TaskItem> taskDelete (@PathVariable Long id) {
         taskItemRepository.deleteById(id);
         List<TaskItem> taskItems = taskItemRepository.findAll();
@@ -62,15 +69,17 @@ public class TaskRestController {
     }
 
 //    タスク更新
-
-
-//    カテゴリ追加
-    @PostMapping("/categoryAdd")
-    public  List<TaskCategory> taskCategories (@RequestBody TaskCategory taskCategory) {
-        taskCategoryRepository.save(taskCategory);
-        List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
-        return taskCategories;
+    @PutMapping("/switchIsCompleted/{id}")
+    public void switchIsCompleted (@PathVariable Long id) {
+        TaskItem taskItem = taskItemRepository.findById(id).orElseThrow();
+        if (taskItem.isCompleted() == false) {
+            taskItem.setCompleted(true);
+        }else {
+            taskItem.setCompleted(false);
+        }
+        taskItemRepository.save(taskItem);
     }
+
 
 }
 
