@@ -43,6 +43,18 @@ public class TaskRestController {
         TaskItem taskItem = taskItemRepository.latestTaskGet();
         return taskItem;
     }
+//    全カテゴリ取得
+    @GetMapping("/categoryGetAll")
+    public List<TaskCategory> categoryGetAll() {
+        List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
+        return taskCategories;
+    }
+//    最新のカテゴリ取得
+    @GetMapping("/latestCategoryGet")
+    public TaskCategory latestCategoryGet () {
+        TaskCategory taskCategory = taskCategoryRepository.latestCategoryGet();
+        return taskCategory;
+    }
 
 //    追加
 //    タスク追加
@@ -58,10 +70,11 @@ public class TaskRestController {
         List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
         for (TaskCategory taskCategory : taskCategories) {
             if (taskCategory.getName().equals(newTaskCategory.getName())){
-                return taskCategories;
+                return null;
             }
         }
         taskCategoryRepository.save(newTaskCategory);
+        taskCategories = taskCategoryRepository.findAll();
         return taskCategories;
     }
 
