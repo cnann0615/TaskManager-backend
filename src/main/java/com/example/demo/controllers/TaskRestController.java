@@ -54,9 +54,14 @@ public class TaskRestController {
     }
     //    カテゴリ追加
     @PostMapping("/categoryAdd")
-    public  List<TaskCategory> taskCategories (@RequestBody TaskCategory taskCategory) {
-        taskCategoryRepository.save(taskCategory);
+    public  List<TaskCategory> taskCategories (@RequestBody TaskCategory newTaskCategory) {
         List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
+        for (TaskCategory taskCategory : taskCategories) {
+            if (taskCategory.getName().equals(newTaskCategory.getName())){
+                return taskCategories;
+            }
+        }
+        taskCategoryRepository.save(newTaskCategory);
         return taskCategories;
     }
 
