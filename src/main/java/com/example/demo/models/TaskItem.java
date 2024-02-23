@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class TaskItem {
     @jakarta.validation.constraints.NotBlank
     private String title;
 
-    private LocalDateTime deadLine;
+    private LocalDate deadLine;
 
     private String category;
 
