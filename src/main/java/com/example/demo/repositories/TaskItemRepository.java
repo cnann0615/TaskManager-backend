@@ -24,8 +24,5 @@ public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
     @Query(value = "SELECT * FROM task_item WHERE id = (SELECT MAX(id) from task_item)", nativeQuery = true)
     TaskItem latestTaskGet();
 
-    //    カテゴリを指定して未完了タスクを取得
-    @Query(value = "SELECT * FROM task_item WHERE category = :category", nativeQuery = true)
-    List<TaskItem> findByCategory(@Param("category") String category);
 
 }
