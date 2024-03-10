@@ -5,6 +5,7 @@ import com.example.demo.models.TaskItem;
 import com.example.demo.repositories.TaskCategoryRepository;
 import com.example.demo.repositories.TaskItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -25,16 +26,22 @@ public class TaskRestController {
         List<TaskItem> taskItems = taskItemRepository.findAll();
         return taskItems;
     }
-//    完了タスク取得
-    @GetMapping("/completedTask")
-    public List<TaskItem> completedTaskGet () {
-        List<TaskItem> taskItems = taskItemRepository.completedTaskGet();
-        return taskItems;
-    }
 //    未完了タスク取得
     @GetMapping("/inCompletedTask")
     public List<TaskItem> inCompletedTaskGet () {
         List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGet();
+        return taskItems;
+    }
+//    カテゴリIDから未完了タスク取得
+    @GetMapping("inCompletedTask/{categoryId}")
+    public List<TaskItem> inCompletedTaskGetByCategoryId (@PathVariable Long categoryId) {
+        List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGetByCategoryId(categoryId);
+        return taskItems;
+    }
+//    完了タスク取得
+    @GetMapping("/completedTask")
+    public List<TaskItem> completedTaskGet () {
+        List<TaskItem> taskItems = taskItemRepository.completedTaskGet();
         return taskItems;
     }
 //    最新のタスク取得

@@ -16,7 +16,7 @@ public interface TaskCategoryRepository extends JpaRepository<TaskCategory, Long
     @Query(value = "SELECT * FROM task_category WHERE id = (SELECT MAX(id) from task_category)", nativeQuery = true)
     TaskCategory latestCategoryGet();
 
-    //    IDを指定してカテゴリ取得
+    //    カテゴリをidから取得
     @Query(value = "SELECT * FROM task_category WHERE id = :id", nativeQuery = true)
     TaskCategory categoryGetById(@Param("id") Long id);
 }
