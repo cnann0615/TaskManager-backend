@@ -112,6 +112,16 @@ public class TaskRestController {
         taskItemRepository.save(taskItem);
     }
 
+//    詳細表示画面からの編集
+    @PutMapping("/updateTask")
+    public  void updateTask (@RequestBody TaskItem taskItem) {
+        TaskItem updateTask = taskItemRepository.findById(taskItem.getId()).orElseThrow();
+        updateTask.setTitle(taskItem.getTitle());
+        updateTask.setDeadLine(taskItem.getDeadLine());
+        updateTask.setCategory(taskItem.getCategory());
+        updateTask.setMemo(taskItem.getMemo());
+        taskItemRepository.save(updateTask);
+    }
 
 }
 
