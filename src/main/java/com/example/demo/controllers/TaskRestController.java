@@ -4,6 +4,7 @@ import com.example.demo.models.TaskCategory;
 import com.example.demo.models.TaskItem;
 import com.example.demo.repositories.TaskCategoryRepository;
 import com.example.demo.repositories.TaskItemRepository;
+import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +33,10 @@ public class TaskRestController {
         List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGet();
         return taskItems;
     }
-//    カテゴリIDから未完了タスク取得
-    @GetMapping("inCompletedTask/{categoryId}")
-    public List<TaskItem> inCompletedTaskGetByCategoryId (@PathVariable Long categoryId) {
-        List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGetByCategoryId(categoryId);
+//    カテゴリIDからタスクを取得
+    @GetMapping("task/{categoryId}")
+    public List<TaskItem> taskGetByCategoryId (@PathVariable Long categoryId) {
+        List<TaskItem> taskItems = taskItemRepository.taskGetByCategoryId(categoryId);
         return taskItems;
     }
 //    完了タスク取得
@@ -92,11 +93,19 @@ public class TaskRestController {
     }
 
 //    削除
+//    タスク削除
     @DeleteMapping("/task/{id}")
     public List<TaskItem> taskDelete (@PathVariable Long id) {
         taskItemRepository.deleteById(id);
         List<TaskItem> taskItems = taskItemRepository.findAll();
         return taskItems;
+    }
+//    カテゴリ削除
+    @DeleteMapping("/category/{id}")
+    public List<TaskCategory> categoryDelete (@PathVariable Long id) {
+        taskCategoryRepository.deleteById(id);
+        List<TaskCategory> categories = taskCategoryRepository.findAll();
+        return  categories;
     }
 
 //    更新
@@ -111,10 +120,9 @@ public class TaskRestController {
         }
         taskItemRepository.save(taskItem);
     }
-
 //    詳細表示画面からの編集
     @PutMapping("/updateTask")
-    public  void updateTask (@RequestBody TaskItem taskItem) {
+    public void updateTask (@RequestBody TaskItem taskItem) {
         TaskItem updateTask = taskItemRepository.findById(taskItem.getId()).orElseThrow();
         updateTask.setTitle(taskItem.getTitle());
         updateTask.setDeadLine(taskItem.getDeadLine());
@@ -123,6 +131,13 @@ public class TaskRestController {
         taskItemRepository.save(updateTask);
     }
 
+//    カテゴリの編集
+    @PutMapping("/updateCategory")
+    public void updateCategory (@RequestBody TaskCategory category) {
+        TaskCategory updateCategory = taskCategoryRepository.findById(category.getId()).orElseThrow();
+        updateCategory.setName(category.getName());
+        taskCategoryRepository.save(updateCategory);
+    }
 }
 
 

@@ -16,9 +16,9 @@ public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
     @Query(value = "SELECT * FROM task_item WHERE is_completed = false", nativeQuery = true)
     List<TaskItem> inCompletedTaskGet();
 
-    //    未完了タスクをカテゴリIDから取得
+    //    タスクをカテゴリIDから取得
     @Query(value = "SELECT * FROM task_item WHERE category_id = :categoryId", nativeQuery = true)
-    List<TaskItem> inCompletedTaskGetByCategoryId(@Param("categoryId") Long id);
+    List<TaskItem> taskGetByCategoryId(@Param("categoryId") Long id);
 
     //    完了タスクを取得
     @Query(value = "SELECT * FROM task_item WHERE is_completed = true", nativeQuery = true)
@@ -27,6 +27,5 @@ public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
     //    最新のタスク取得
     @Query(value = "SELECT * FROM task_item WHERE id = (SELECT MAX(id) from task_item)", nativeQuery = true)
     TaskItem latestTaskGet();
-
 
 }
