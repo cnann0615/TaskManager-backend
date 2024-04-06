@@ -109,7 +109,7 @@ public class TaskRestController {
     }
 
 //    更新
-//    タスク完了フラグ切り替え
+//    タスク完了フラグの切り替え
     @PutMapping("/switchIsCompleted/{id}")
     public void switchIsCompleted (@PathVariable Long id) {
         TaskItem taskItem = taskItemRepository.findById(id).orElseThrow();
