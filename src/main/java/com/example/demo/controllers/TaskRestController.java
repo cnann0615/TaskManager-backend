@@ -109,22 +109,12 @@ public class TaskRestController {
     }
 
 //    更新
-//    タスク完了フラグの切り替え
-    @PutMapping("/switchIsCompleted/{id}")
-    public void switchIsCompleted (@PathVariable Long id) {
-        TaskItem taskItem = taskItemRepository.findById(id).orElseThrow();
-        if (taskItem.isCompleted() == false) {
-            taskItem.setCompleted(true);
-        }else {
-            taskItem.setCompleted(false);
-        }
-        taskItemRepository.save(taskItem);
-    }
-//    詳細表示画面からの編集
+//    タスクの更新
     @PutMapping("/updateTask")
     public void updateTask (@RequestBody TaskItem taskItem) {
         TaskItem updateTask = taskItemRepository.findById(taskItem.getId()).orElseThrow();
         updateTask.setTitle(taskItem.getTitle());
+        updateTask.setCompleted(taskItem.isCompleted());
         updateTask.setDeadLine(taskItem.getDeadLine());
         updateTask.setCategory(taskItem.getCategory());
         updateTask.setMemo(taskItem.getMemo());
