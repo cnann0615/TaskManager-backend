@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/taskAPI")
-@CrossOrigin(origins = {"http://localhost:3000", "https://task-manager-seven-theta.vercel.app"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class TaskRestController {
     @Autowired
     private TaskItemRepository taskItemRepository;
