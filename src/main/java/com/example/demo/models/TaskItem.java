@@ -28,5 +28,8 @@ public class TaskItem {
     private String memo;
 
     private boolean isCompleted = false;
+
+    @Column(nullable = false)
+    private Integer orderIndex;
     
 }
