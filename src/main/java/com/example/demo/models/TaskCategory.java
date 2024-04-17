@@ -22,6 +22,4 @@ public class TaskCategory {
     private String name;
 
 
-
-
 }
