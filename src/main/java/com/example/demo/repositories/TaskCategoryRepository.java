@@ -12,6 +12,10 @@ import java.util.List;
 
 @Repository
 public interface TaskCategoryRepository extends JpaRepository<TaskCategory, Long> {
+    //    全カテゴリ取得
+    @Query(value = "SELECT * FROM task_category order by order_index", nativeQuery = true)
+    List<TaskCategory> allCategoryGet();
+
     //    最新のカテゴリ取得
     @Query(value = "SELECT * FROM task_category WHERE id = (SELECT MAX(id) from task_category)", nativeQuery = true)
     TaskCategory latestCategoryGet();

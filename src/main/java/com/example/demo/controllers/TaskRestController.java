@@ -60,7 +60,7 @@ public class TaskRestController {
 //    全カテゴリ取得
     @GetMapping("/category")
     public List<TaskCategory> categoryGetAll() {
-        List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
+        List<TaskCategory> taskCategories = taskCategoryRepository.allCategoryGet();
         return taskCategories;
     }
 //    最新のカテゴリ取得
