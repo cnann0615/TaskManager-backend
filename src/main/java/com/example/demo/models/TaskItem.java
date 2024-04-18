@@ -29,7 +29,6 @@ public class TaskItem {
 
     private boolean isCompleted = false;
 
-    @Column(nullable = false)
     private Integer orderIndex;
     
 }

@@ -28,4 +28,8 @@ public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
     @Query(value = "SELECT * FROM task_item WHERE id = (SELECT MAX(id) from task_item)", nativeQuery = true)
     TaskItem latestTaskGet();
 
+    //    最大のorderIndexを取得
+    @Query(value = "SELECT MAX(order_index) FROM task_item", nativeQuery = true)
+    Integer maxOrderIndexGet();
+
 }

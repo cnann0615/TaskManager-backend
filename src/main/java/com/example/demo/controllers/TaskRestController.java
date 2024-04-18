@@ -51,6 +51,12 @@ public class TaskRestController {
         TaskItem taskItem = taskItemRepository.latestTaskGet();
         return taskItem;
     }
+//    最大のorderIndex（タスク）取得
+    @GetMapping("/maxTaskOrderIndex")
+    public Integer maxOrderIndexGet () {
+        Integer orderIndex = taskItemRepository.maxOrderIndexGet();
+        return orderIndex;
+    }
 //    全カテゴリ取得
     @GetMapping("/category")
     public List<TaskCategory> categoryGetAll() {
@@ -68,6 +74,12 @@ public class TaskRestController {
     public TaskCategory categoryGetById (@PathVariable Long id) {
         TaskCategory taskCategory = taskCategoryRepository.categoryGetById(id);
         return taskCategory;
+    }
+    //    最大のorderIndex（カテゴリ）取得
+    @GetMapping("/maxCategoryOrderIndex")
+    public Integer maxCategoryOrderIndexGet () {
+        Integer orderIndex = taskCategoryRepository.maxOrderIndexGet();
+        return orderIndex;
     }
 
 //    追加

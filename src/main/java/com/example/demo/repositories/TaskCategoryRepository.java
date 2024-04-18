@@ -19,4 +19,8 @@ public interface TaskCategoryRepository extends JpaRepository<TaskCategory, Long
     //    カテゴリをidから取得
     @Query(value = "SELECT * FROM task_category WHERE id = :id", nativeQuery = true)
     TaskCategory categoryGetById(@Param("id") Long id);
+
+    //    最大のorderIndexを取得
+    @Query(value = "SELECT MAX(order_index) FROM task_category", nativeQuery = true)
+    Integer maxOrderIndexGet();
 }

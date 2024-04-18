@@ -21,7 +21,6 @@ public class TaskCategory {
     @jakarta.validation.constraints.NotBlank
     private String name;
 
-    @Column(nullable = false)
     private Integer orderIndex;
 
 }
