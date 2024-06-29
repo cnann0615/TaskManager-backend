@@ -1,12 +1,12 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.TaskCategory;
 import com.example.demo.models.TaskItem;
+import com.example.demo.models.TaskCategory;
+import com.example.demo.models.TaskSchedule;
 import com.example.demo.repositories.TaskCategoryRepository;
 import com.example.demo.repositories.TaskItemRepository;
-import jdk.jfr.Category;
+import com.example.demo.repositories.TaskScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,6 +18,8 @@ public class TaskRestController {
     private TaskItemRepository taskItemRepository;
     @Autowired
     private TaskCategoryRepository taskCategoryRepository;
+    @Autowired
+    private TaskScheduleRepository taskScheduleRepository;
 
 
 //    取得
@@ -37,6 +39,12 @@ public class TaskRestController {
     @GetMapping("task/{categoryId}")
     public List<TaskItem> taskGetByCategoryId (@PathVariable Long categoryId) {
         List<TaskItem> taskItems = taskItemRepository.taskGetByCategoryId(categoryId);
+        return taskItems;
+    }
+//    スケジュールIDからタスクを取得
+    @GetMapping("task/{scheduleId}")
+    public List<TaskItem> taskGetByScheduleId (@PathVariable Long scheduleId) {
+        List<TaskItem> taskItems = taskItemRepository.taskGetByScheduleId(scheduleId);
         return taskItems;
     }
 //    完了タスク取得
@@ -81,6 +89,30 @@ public class TaskRestController {
         Integer orderIndex = taskCategoryRepository.maxOrderIndexGet();
         return orderIndex;
     }
+    //    全スケジュール取得
+    @GetMapping("/schedule")
+    public List<TaskSchedule> scheduleGetAll() {
+        List<TaskSchedule> taskSchedules = taskScheduleRepository.allScheduleGet();
+        return taskSchedules;
+    }
+    //    最新のスケジュール取得
+    @GetMapping("/latestSchedule")
+    public TaskSchedule latestScheduleGet () {
+        TaskSchedule taskSchedule = taskScheduleRepository.latestScheduleGet();
+        return taskSchedule;
+    }
+    //    IDを指定してスケジュール取得
+    @GetMapping("/schedule/{id}")
+    public TaskSchedule scheduleGetById (@PathVariable Long id) {
+        TaskSchedule taskSchedule = taskScheduleRepository.scheduleGetById(id);
+        return taskSchedule;
+    }
+    //    最大のorderIndex（スケジュール）取得
+    @GetMapping("/maxScheduleOrderIndex")
+    public Integer maxScheduleOrderIndexGet () {
+        Integer orderIndex = taskScheduleRepository.maxOrderIndexGet();
+        return orderIndex;
+    }
 
 //    追加
 //    タスク追加
@@ -103,6 +135,19 @@ public class TaskRestController {
         taskCategories = taskCategoryRepository.findAll();
         return taskCategories;
     }
+    //    スケジュール追加
+    @PostMapping("/schedule")
+    public  List<TaskSchedule> taskSchedules (@RequestBody TaskSchedule newTaskSchedule) {
+        List<TaskSchedule> taskSchedules = taskScheduleRepository.findAll();
+        for (TaskSchedule taskSchedule : taskSchedules) {
+            if (taskSchedule.getName().equals(newTaskSchedule.getName())){
+                return null;
+            }
+        }
+        taskScheduleRepository.save(newTaskSchedule);
+        taskSchedules = taskScheduleRepository.findAll();
+        return taskSchedules;
+    }
 
 //    削除
 //    タスク削除
@@ -119,6 +164,13 @@ public class TaskRestController {
         List<TaskCategory> categories = taskCategoryRepository.findAll();
         return  categories;
     }
+//    スケジュール削除
+    @DeleteMapping("/schedule/{id}")
+    public List<TaskSchedule> scheduleDelete (@PathVariable Long id) {
+        taskScheduleRepository.deleteById(id);
+        List<TaskSchedule> schedules = taskScheduleRepository.findAll();
+        return  schedules;
+    }
 
 //    更新
 //    タスクの更新
@@ -129,6 +181,7 @@ public class TaskRestController {
         updateTask.setCompleted(taskItem.isCompleted());
         updateTask.setDeadLine(taskItem.getDeadLine());
         updateTask.setCategory(taskItem.getCategory());
+        updateTask.setSchedule(taskItem.getSchedule());
         updateTask.setMemo(taskItem.getMemo());
         taskItemRepository.save(updateTask);
     }
@@ -139,6 +192,13 @@ public class TaskRestController {
         TaskCategory updateCategory = taskCategoryRepository.findById(category.getId()).orElseThrow();
         updateCategory.setName(category.getName());
         taskCategoryRepository.save(updateCategory);
+    }
+//    スケジュールの編集
+    @PutMapping("/updateSchedule")
+    public void updateSchedule (@RequestBody TaskSchedule schedule) {
+        TaskSchedule updateSchedule = taskScheduleRepository.findById(schedule.getId()).orElseThrow();
+        updateSchedule.setName(schedule.getName());
+        taskScheduleRepository.save(updateSchedule);
     }
 }
 

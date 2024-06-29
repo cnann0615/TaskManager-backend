@@ -20,6 +20,10 @@ public interface TaskItemRepository extends JpaRepository<TaskItem, Long> {
     @Query(value = "SELECT * FROM task_item WHERE category_id = :categoryId", nativeQuery = true)
     List<TaskItem> taskGetByCategoryId(@Param("categoryId") Long id);
 
+    //    タスクをスケジュールIDから取得
+    @Query(value = "SELECT * FROM task_item WHERE schedule_id = :scheduleId", nativeQuery = true)
+    List<TaskItem> taskGetByScheduleId(@Param("scheduleId") Long id);
+
     //    完了タスクを取得
     @Query(value = "SELECT * FROM task_item WHERE is_completed = true order by order_index", nativeQuery = true)
     List<TaskItem> completedTaskGet();
