@@ -1,37 +1,26 @@
 package com.example.demo.models;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
 
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class TaskItem {
+public class TaskSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @jakarta.validation.constraints.NotBlank
-    private String title;
-
-    private LocalDate deadLine;
-
-    @ManyToOne
-    private TaskCategory category;
-
-    @ManyToOne
-    private TaskSchedule schedule;
-
-    private String memo;
-
-    private boolean isCompleted = false;
+    private String name;
 
     private Integer orderIndex;
-    
+
 }
