@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.demo.models.TaskItem;
 import com.example.demo.models.TaskCategory;
 import com.example.demo.models.TaskSchedule;
@@ -161,6 +162,7 @@ public class TaskRestController {
     @DeleteMapping("/category/{id}")
     public List<TaskCategory> categoryDelete (@PathVariable Long id) {
         taskCategoryRepository.deleteById(id);
+        System.out.println("削除");
         List<TaskCategory> categories = taskCategoryRepository.findAll();
         return  categories;
     }
