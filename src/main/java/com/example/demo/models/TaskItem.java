@@ -17,6 +17,8 @@ public class TaskItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userId;
+
     @jakarta.validation.constraints.NotBlank
     private String title;
 

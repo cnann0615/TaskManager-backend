@@ -26,56 +26,56 @@ public class TaskRestController {
 //    取得
 //    全タスク取得
     @GetMapping("/task")
-    public List<TaskItem> taskGet () {
-        List<TaskItem> taskItems = taskItemRepository.findAll();
+    public List<TaskItem> taskGet (@RequestParam String userId) {
+        List<TaskItem> taskItems = taskItemRepository.allTaskGet(userId);
         return taskItems;
     }
 //    未完了タスク取得
     @GetMapping("/inCompletedTask")
-    public List<TaskItem> inCompletedTaskGet () {
-        List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGet();
+    public List<TaskItem> inCompletedTaskGet (@RequestParam String userId) {
+        List<TaskItem> taskItems = taskItemRepository.inCompletedTaskGet(userId);
         return taskItems;
     }
 //    カテゴリIDからタスクを取得
     @GetMapping("task/{categoryId}")
-    public List<TaskItem> taskGetByCategoryId (@PathVariable Long categoryId) {
-        List<TaskItem> taskItems = taskItemRepository.taskGetByCategoryId(categoryId);
+    public List<TaskItem> taskGetByCategoryId (@PathVariable Long categoryId, @RequestParam String userId) {
+        List<TaskItem> taskItems = taskItemRepository.taskGetByCategoryId(categoryId, userId);
         return taskItems;
     }
 //    スケジュールIDからタスクを取得
     @GetMapping("task/{scheduleId}")
-    public List<TaskItem> taskGetByScheduleId (@PathVariable Long scheduleId) {
-        List<TaskItem> taskItems = taskItemRepository.taskGetByScheduleId(scheduleId);
+    public List<TaskItem> taskGetByScheduleId (@PathVariable Long scheduleId, @RequestParam String userId) {
+        List<TaskItem> taskItems = taskItemRepository.taskGetByScheduleId(scheduleId, userId);
         return taskItems;
     }
 //    完了タスク取得
     @GetMapping("/completedTask")
-    public List<TaskItem> completedTaskGet () {
-        List<TaskItem> taskItems = taskItemRepository.completedTaskGet();
+    public List<TaskItem> completedTaskGet (@RequestParam String userId) {
+        List<TaskItem> taskItems = taskItemRepository.completedTaskGet(userId);
         return taskItems;
     }
 //    最新のタスク取得
     @GetMapping("/latestTask")
-    public TaskItem latestTaskGet () {
-        TaskItem taskItem = taskItemRepository.latestTaskGet();
+    public TaskItem latestTaskGet (@RequestParam String userId) {
+        TaskItem taskItem = taskItemRepository.latestTaskGet(userId);
         return taskItem;
     }
 //    最大のorderIndex（タスク）取得
     @GetMapping("/maxTaskOrderIndex")
-    public Integer maxOrderIndexGet () {
-        Integer orderIndex = taskItemRepository.maxOrderIndexGet();
+    public Integer maxOrderIndexGet (@RequestParam String userId) {
+        Integer orderIndex = taskItemRepository.maxOrderIndexGet(userId);
         return orderIndex;
     }
 //    全カテゴリ取得
     @GetMapping("/category")
-    public List<TaskCategory> categoryGetAll() {
-        List<TaskCategory> taskCategories = taskCategoryRepository.allCategoryGet();
+    public List<TaskCategory> categoryGetAll(@RequestParam String userId) {
+        List<TaskCategory> taskCategories = taskCategoryRepository.allCategoryGet(userId);
         return taskCategories;
     }
 //    最新のカテゴリ取得
     @GetMapping("/latestCategory")
-    public TaskCategory latestCategoryGet () {
-        TaskCategory taskCategory = taskCategoryRepository.latestCategoryGet();
+    public TaskCategory latestCategoryGet (@RequestParam String userId) {
+        TaskCategory taskCategory = taskCategoryRepository.latestCategoryGet(userId);
         return taskCategory;
     }
 //    IDを指定してカテゴリ取得
@@ -86,20 +86,20 @@ public class TaskRestController {
     }
     //    最大のorderIndex（カテゴリ）取得
     @GetMapping("/maxCategoryOrderIndex")
-    public Integer maxCategoryOrderIndexGet () {
-        Integer orderIndex = taskCategoryRepository.maxOrderIndexGet();
+    public Integer maxCategoryOrderIndexGet (@RequestParam String userId) {
+        Integer orderIndex = taskCategoryRepository.maxOrderIndexGet(userId);
         return orderIndex;
     }
     //    全スケジュール取得
     @GetMapping("/schedule")
-    public List<TaskSchedule> scheduleGetAll() {
-        List<TaskSchedule> taskSchedules = taskScheduleRepository.allScheduleGet();
+    public List<TaskSchedule> scheduleGetAll(@RequestParam String userId) {
+        List<TaskSchedule> taskSchedules = taskScheduleRepository.allScheduleGet(userId);
         return taskSchedules;
     }
     //    最新のスケジュール取得
     @GetMapping("/latestSchedule")
-    public TaskSchedule latestScheduleGet () {
-        TaskSchedule taskSchedule = taskScheduleRepository.latestScheduleGet();
+    public TaskSchedule latestScheduleGet (@RequestParam String userId) {
+        TaskSchedule taskSchedule = taskScheduleRepository.latestScheduleGet(userId);
         return taskSchedule;
     }
     //    IDを指定してスケジュール取得
@@ -110,8 +110,8 @@ public class TaskRestController {
     }
     //    最大のorderIndex（スケジュール）取得
     @GetMapping("/maxScheduleOrderIndex")
-    public Integer maxScheduleOrderIndexGet () {
-        Integer orderIndex = taskScheduleRepository.maxOrderIndexGet();
+    public Integer maxScheduleOrderIndexGet (@RequestParam String userId) {
+        Integer orderIndex = taskScheduleRepository.maxOrderIndexGet(userId);
         return orderIndex;
     }
 

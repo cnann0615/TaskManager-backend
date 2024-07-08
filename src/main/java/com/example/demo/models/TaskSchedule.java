@@ -18,6 +18,8 @@ public class TaskSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userId;
+
     @jakarta.validation.constraints.NotBlank
     private String name;
 
