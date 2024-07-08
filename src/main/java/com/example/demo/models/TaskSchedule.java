@@ -19,6 +19,9 @@ public class TaskSchedule {
     private Long id;
 
     @jakarta.validation.constraints.NotBlank
+    private String userId;
+
+    @jakarta.validation.constraints.NotBlank
     private String name;
 
     private Integer orderIndex;

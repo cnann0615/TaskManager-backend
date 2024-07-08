@@ -18,6 +18,9 @@ public class TaskItem {
     private Long id;
 
     @jakarta.validation.constraints.NotBlank
+    private String userId;
+
+    @jakarta.validation.constraints.NotBlank
     private String title;
 
     private LocalDate deadLine;
