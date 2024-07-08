@@ -18,6 +18,7 @@ public class TaskCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @jakarta.validation.constraints.NotBlank
     private String userId;
 
     @jakarta.validation.constraints.NotBlank
