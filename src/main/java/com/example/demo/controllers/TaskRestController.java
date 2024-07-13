@@ -180,7 +180,7 @@ public class TaskRestController {
     public void updateTask (@RequestBody TaskItem taskItem) {
         TaskItem updateTask = taskItemRepository.findById(taskItem.getId()).orElseThrow();
         updateTask.setTitle(taskItem.getTitle());
-        updateTask.setCompleted(taskItem.isCompleted());
+        updateTask.setIsCompleted(taskItem.getIsCompleted());
         updateTask.setDeadLine(taskItem.getDeadLine());
         updateTask.setCategory(taskItem.getCategory());
         updateTask.setSchedule(taskItem.getSchedule());

@@ -33,7 +33,7 @@ public class TaskItem {
 
     private String memo;
 
-    private boolean isCompleted = false;
+    private Boolean isCompleted = false;
 
     private Integer orderIndex;
     
