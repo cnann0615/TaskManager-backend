@@ -128,7 +128,7 @@ public class TaskRestController {
     public  List<TaskCategory> taskCategories (@RequestBody TaskCategory newTaskCategory) {
         List<TaskCategory> taskCategories = taskCategoryRepository.findAll();
         for (TaskCategory taskCategory : taskCategories) {
-            if (taskCategory.getName().equals(newTaskCategory.getName())){
+            if (taskCategory.getName().equals(newTaskCategory.getName()) && taskCategory.getUserId().equals(newTaskCategory.getUserId())){
                 return null;
             }
         }
@@ -141,7 +141,7 @@ public class TaskRestController {
     public  List<TaskSchedule> taskSchedules (@RequestBody TaskSchedule newTaskSchedule) {
         List<TaskSchedule> taskSchedules = taskScheduleRepository.findAll();
         for (TaskSchedule taskSchedule : taskSchedules) {
-            if (taskSchedule.getName().equals(newTaskSchedule.getName())){
+            if (taskSchedule.getName().equals(newTaskSchedule.getName()) && taskSchedule.getUserId().equals(newTaskSchedule.getUserId())){
                 return null;
             }
         }
