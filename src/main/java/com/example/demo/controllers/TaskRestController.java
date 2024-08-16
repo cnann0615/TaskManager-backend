@@ -162,7 +162,6 @@ public class TaskRestController {
     @DeleteMapping("/category/{id}")
     public List<TaskCategory> categoryDelete (@PathVariable Long id) {
         taskCategoryRepository.deleteById(id);
-        System.out.println("削除");
         List<TaskCategory> categories = taskCategoryRepository.findAll();
         return  categories;
     }
