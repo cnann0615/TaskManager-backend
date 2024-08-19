@@ -48,15 +48,19 @@ GitHub（ソースコード管理）<br>
 ## 機能概要
 
 APIサーバとしてデータをフロントエンドとやり取りし、DBに反映させることが主な役割です。<br>
-以下の通り、Controllers, Repositories, Modelsを作成し、<br><br>
+以下の通り、Controllers, Services, Repositories, Modelsを作成し、<br><br>
 
-フロントエンド ←→ axios ←→ Controllers ←→ Repositories ←→ Models（ORマッパーでDBと連携）<br><br>
+フロントエンド ←→ axios ←→ Controllers ←→ Services ←→ Repositories ←→ Models（ORマッパーでDBと連携）<br><br>
 
 のような流れで処理を行っています。<br>
 
 ### Controllers
 ・TaskRestController.java <br>
-→　REST Controller。フロントエンドからのリクエストをさばき、Repositoryの処理を呼び出し、結果をレスポンスする。<br>
+→　REST Controller。フロントエンドからのリクエストをさばき、Servicesの処理を呼び出し、結果をレスポンスする。<br>
+
+### Services
+・TaskService.java<br>
+→　ビジネスロジックを担当。Controllersからのアクセスに応じ、ビジネスロジックの元、Repositoriesの処理を呼び出し、結果をControllersに返却する。<br>
 
 ### Repositories
 以下それぞれのRepositoryにて、ModelおよびDBへのCRUD操作を行う。（SQL文の実行など）<br>
@@ -99,7 +103,7 @@ SpringBootは「アテーション」を使い倒すフレームワークであ�
 
 最後までお読みいただきありがとうございました。<br>
 
-この個人開発を通して、これまでインプットした内容をもとに、自力で実施に動くアプリケーションを作ることができ、とても自信がつきました。<br>
+この個人開発を通して、これまでインプットした内容をもとに、自力で実際に動くアプリケーションを作ることができ、とても自信がつきました。<br>
 
 開発をする過程で様々なエラーにぶつかり、それを乗り越えることで、エンジニアとしてのレベルが上がっていくのを、身をもって体験することができました。<br>
 
